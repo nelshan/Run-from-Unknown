@@ -123,17 +123,30 @@ NavMesh: Integrated AI pathfinding for the monster to dynamically follow and cha
 
 This system allows users to create accounts, log in, and save progress. It uses Unity’s UI system to handle user input, and PlayFab SDK handles backend account management.
 
+
 // Simplified example of PlayFab user login
+
+
 PlayFabClientAPI.LoginWithEmailAddress(new LoginWithEmailAddressRequest(){
+
     Email = emailAddress,
+
     Password = password
+
     },
+
     request => {
+
         Debug.Log($"Successful Account Login: {emailAddress}");
+
         SceneManager.LoadScene("Main Menu");
+
     },
+
     error => {
+    
         Debug.Log($"Unsuccessful Account Login: {emailAddress} \n {error.ErrorMessage}");
+    
     });
 
 8.2. Monster AI with NavMesh
@@ -141,22 +154,36 @@ PlayFabClientAPI.LoginWithEmailAddress(new LoginWithEmailAddressRequest(){
 The AI that controls the monster switches between a stalking state and a chase state, depending on the player’s proximity and visibility.
 
 // Basic AI behavior switching between stalking and chasing
+
 void Update() {
+
     switch (state) {
+        
         case BehaviorState.Stalking:
+           
             if (CanSeePlayer()) {
+               
                 state = BehaviorState.Chasing;
+                
                 agent.speed = chaseSpeed;
+            
             }
+           
             break;
+        
         case BehaviorState.Chasing:
+            
             if (!CanSeePlayer()) {
+                
                 state = BehaviorState.Stalking;
+                
                 agent.speed = stalkSpeed;
+            
             }
+           
             break;
-    }
-}
+   
+    } }
 
 9. Conclusion
 
